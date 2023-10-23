@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:adv_basics/answer_button.dart';
@@ -49,7 +50,11 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                   crossAxisSpacing: 20,
                   children: [
                     ...currentQuestion.getShuffledImages().map((image) {
-                      return Expanded(child: Image(image: NetworkImage(image)));
+                      return Expanded(
+                          child: CachedNetworkImage(
+                        imageUrl: image,
+                        errorWidget: (context, url, error) => Text(error),
+                      ));
                     })
                   ]),
               ...currentQuestion.getShuffledAnswers().map((answer) {
