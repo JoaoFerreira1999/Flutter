@@ -1,5 +1,6 @@
-import 'package:animemanga_tracker/initial_screen.dart';
+import 'package:animemanga_tracker/screens/initial_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 //import 'package:google_fonts/google_fonts.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
@@ -7,8 +8,8 @@ var kColorScheme = ColorScheme.fromSeed(
 );
 
 void main() {
-  runApp(
-    MaterialApp(
+  runApp(ProviderScope(
+    child: MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: const Color.fromARGB(255, 51, 51, 51),
@@ -16,5 +17,5 @@ void main() {
       ),
       home: const InitialScreen(),
     ),
-  );
+  ));
 }

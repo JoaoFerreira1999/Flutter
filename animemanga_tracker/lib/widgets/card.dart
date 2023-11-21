@@ -1,4 +1,4 @@
-import 'package:animemanga_tracker/all_anime_details.dart';
+import 'package:animemanga_tracker/screens/all_anime_details.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 

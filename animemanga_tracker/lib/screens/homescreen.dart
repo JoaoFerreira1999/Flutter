@@ -1,5 +1,5 @@
-import 'package:animemanga_tracker/animeList.dart';
-import 'package:animemanga_tracker/allMangas.dart';
+import 'package:animemanga_tracker/screens/animeList.dart';
+import 'package:animemanga_tracker/screens/allMangas.dart';
 import 'package:animemanga_tracker/models/anime.dart';
 import 'package:animemanga_tracker/widgets/input_textfield.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +52,7 @@ class _HomeScreen extends State<HomeScreen> {
       items: [
         PersistentBottomNavBarItem(icon: const Icon(Icons.home)),
         PersistentBottomNavBarItem(icon: const Icon(Icons.connected_tv)),
-        PersistentBottomNavBarItem(icon: const Icon(Icons.book_online)),
+        PersistentBottomNavBarItem(icon: const Icon(Icons.book)),
       ],
       hideNavigationBar: hideStatus,
       confineInSafeArea: true,

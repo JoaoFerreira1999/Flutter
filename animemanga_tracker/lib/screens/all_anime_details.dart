@@ -1,9 +1,11 @@
+import 'package:animemanga_tracker/providers/users_provider.dart';
 import 'package:animemanga_tracker/widgets/video_player.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AllAnimeDetails extends StatefulWidget {
+class AllAnimeDetails extends ConsumerStatefulWidget {
   const AllAnimeDetails(
       {super.key,
       required this.specificDetails,
@@ -14,12 +16,12 @@ class AllAnimeDetails extends StatefulWidget {
   final specificDetails;
 
   @override
-  State<StatefulWidget> createState() {
+  ConsumerState<AllAnimeDetails> createState() {
     return _AllAnimesDetails();
   }
 }
 
-class _AllAnimesDetails extends State<AllAnimeDetails> {
+class _AllAnimesDetails extends ConsumerState<AllAnimeDetails> {
   var genres;
   late String firstHalf;
   late String secondHalf;

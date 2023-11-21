@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import 'models/anime.dart';
+import '../models/anime.dart';
 
 class ResultsScreen extends StatefulWidget {
   const ResultsScreen({super.key, required this.animeDetails});

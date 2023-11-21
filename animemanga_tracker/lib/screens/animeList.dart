@@ -1,23 +1,29 @@
+import 'package:animemanga_tracker/screens/initial_screen.dart';
+import 'package:animemanga_tracker/screens/profile.dart';
+import 'package:animemanga_tracker/widgets/more_card.dart';
 import 'package:animemanga_tracker/widgets/recommended_ACard.dart';
 import 'package:flutter/material.dart';
 import 'package:animemanga_tracker/widgets/textfield.dart';
 import 'package:animemanga_tracker/models/anime.dart';
 import 'package:animemanga_tracker/widgets/card.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class AllAnimes extends StatefulWidget {
+import '../providers/users_provider.dart';
+
+class AllAnimes extends ConsumerStatefulWidget {
   const AllAnimes({super.key, required this.hideNavigationBar});
 
   final void Function() hideNavigationBar;
 
   @override
-  State<StatefulWidget> createState() {
+  ConsumerState<AllAnimes> createState() {
     return _AllAnimes();
   }
 }
 
-class _AllAnimes extends State<AllAnimes> {
+class _AllAnimes extends ConsumerState<AllAnimes> {
   final _inputController = TextEditingController();
 
   var topAnimeDetails = [];
@@ -30,6 +36,7 @@ class _AllAnimes extends State<AllAnimes> {
     getTopAnime();
     getAiringAnime();
     getRecommendations();
+    ref.read(userProvider);
   }
 
   Future<void> getTopAnime() async {
@@ -75,6 +82,8 @@ class _AllAnimes extends State<AllAnimes> {
 
   @override
   Widget build(BuildContext context) {
+    final userDetails = ref.watch(userProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -84,7 +93,40 @@ class _AllAnimes extends State<AllAnimes> {
         backgroundColor: const Color.fromARGB(255, 29, 29, 29),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              if (userDetails.email != "") {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => const Profile(),
+                  ),
+                );
+              } else {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      content: const Text(
+                        "You are not logged in yet!",
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => const InitialScreen(),
+                            ),
+                          ),
+                          child: const Text("Login"),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text("Cancel"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
+            },
             icon: const Icon(Icons.person_rounded),
             color: Colors.white,
           ),
@@ -122,12 +164,24 @@ class _AllAnimes extends State<AllAnimes> {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    ...topAnimeDetails.map((element) {
-                      return AnimeCard(
-                        animeDetails: element,
-                        hideNavigationBar: widget.hideNavigationBar,
-                      );
-                    }),
+                    ...topAnimeDetails.map(
+                      (element) {
+                        return AnimeCard(
+                          animeDetails: element,
+                          hideNavigationBar: widget.hideNavigationBar,
+                        );
+                      },
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(10),
+                      decoration: const BoxDecoration(
+                          color: Colors.grey, shape: BoxShape.circle),
+                      child: IconButton(
+                        onPressed: () => {},
+                        icon: const Icon(Icons.arrow_forward_rounded,
+                            color: Colors.black),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -149,12 +203,24 @@ class _AllAnimes extends State<AllAnimes> {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    ...airingAnimeDetails.map((element) {
-                      return AnimeCard(
-                        animeDetails: element,
-                        hideNavigationBar: widget.hideNavigationBar,
-                      );
-                    }),
+                    ...airingAnimeDetails.map(
+                      (element) {
+                        return AnimeCard(
+                          animeDetails: element,
+                          hideNavigationBar: widget.hideNavigationBar,
+                        );
+                      },
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(10),
+                      decoration: const BoxDecoration(
+                          color: Colors.grey, shape: BoxShape.circle),
+                      child: IconButton(
+                        onPressed: () => {},
+                        icon: const Icon(Icons.arrow_forward_rounded,
+                            color: Colors.black),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -176,9 +242,21 @@ class _AllAnimes extends State<AllAnimes> {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    ...recommendedAnime.map((element) {
-                      return RecommendedAnimeCard(animeDetails: element);
-                    }),
+                    ...recommendedAnime.map(
+                      (element) {
+                        return RecommendedAnimeCard(animeDetails: element);
+                      },
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(10),
+                      decoration: const BoxDecoration(
+                          color: Colors.grey, shape: BoxShape.circle),
+                      child: IconButton(
+                        onPressed: () => {},
+                        icon: const Icon(Icons.arrow_forward_rounded,
+                            color: Colors.black),
+                      ),
+                    ),
                   ],
                 ),
               ),

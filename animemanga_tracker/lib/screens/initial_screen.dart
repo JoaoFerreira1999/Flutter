@@ -1,6 +1,7 @@
-import 'package:animemanga_tracker/homescreen.dart';
-import 'package:animemanga_tracker/login_form.dart';
-import 'package:animemanga_tracker/register_form.dart';
+import 'package:animemanga_tracker/screens/homescreen.dart';
+import 'package:animemanga_tracker/screens/login_form.dart';
+import 'package:animemanga_tracker/screens/register_form.dart';
+import 'package:animemanga_tracker/widgets/introduction_screen.dart';
 import 'package:flutter/material.dart';
 
 class InitialScreen extends StatefulWidget {
@@ -33,8 +34,8 @@ class _InitialScreen extends State<InitialScreen> {
               height: 210,
             ),
             registerState
-                ? RegisterForm(switchScreen: switchScreen)
-                : LoginForm(switchScreen: switchScreen),
+                ? LoginForm(switchScreen: switchScreen)
+                : RegisterForm(switchScreen: switchScreen),
             const SizedBox(
               height: 10,
             ),
@@ -42,7 +43,7 @@ class _InitialScreen extends State<InitialScreen> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) => const HomeScreen(),
+                    builder: (_) => const IntroScreen(),
                   ),
                 );
               },
